@@ -9,8 +9,12 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] InputAction _touch;
     [SerializeField] InputAction _drag;
 
+    [Header("Events")]
+    [SerializeField] VoidEvent _spawnMochi;
+
     [Header("References")]
     [SerializeField] GameObject _dropMarker;
+    [SerializeField] ObjectPoolController _objectPoolController;
 
     Vector3 _cursorScreenPosition = Vector3.zero;
     bool _isDragging = false;
@@ -22,7 +26,12 @@ public class MochiDropper : MonoBehaviour
 
         _drag.performed += context => { _cursorScreenPosition = context.ReadValue<Vector2>(); };
         _touch.performed += context => { _isDragging = true; };
-        _touch.canceled += context => { _isDragging = false; };
+        _touch.canceled += context => { _isDragging = false; SpawnMochi(); };
+    }
+
+    private void Start()
+    {
+        _objectPoolController.InitializePool(20);
     }
 
     private void Update()
@@ -31,6 +40,9 @@ public class MochiDropper : MonoBehaviour
         {
             // Calculate the new position for the _dropMarker using Lerp
             Vector3 targetPosition = Camera.main.ScreenToWorldPoint(_cursorScreenPosition);
+
+
+            targetPosition.x = ClampInPlayArea(targetPosition.x);
             targetPosition.y = _dropMarker.transform.position.y;
             targetPosition.z = 0; // Assuming z should be 0, adjust as needed
 
@@ -39,8 +51,22 @@ public class MochiDropper : MonoBehaviour
         }
     }
 
-    private IEnumerator DragTask()
+    private float ClampInPlayArea(float p_x)
     {
-        yield return null;
+
+        Camera mainCamera = Camera.main;
+        // Calculate the camera's boundaries
+        float cameraWidth = mainCamera.orthographicSize * mainCamera.aspect;
+        float minX = mainCamera.transform.position.x - cameraWidth + 0.5f;
+        float maxX = mainCamera.transform.position.x + cameraWidth - 0.5f;
+        float clampedX = Mathf.Clamp(p_x, minX, maxX);
+        return clampedX;
+    }
+
+    private void SpawnMochi()
+    {
+        GameObject mochi = _objectPoolController.GetObject();
+        mochi.transform.position = _dropMarker.transform.position;
+        mochi.SetActive(true);
     }
 }
