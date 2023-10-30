@@ -37,6 +37,7 @@ public class MochiCombiner : MonoBehaviour
         p_mochiPair.mochi1.transform.DOScale(2f, _gameSettings.scaleSpeed);
         p_mochiPair.mochi2.transform.DOScale(2f, _gameSettings.scaleSpeed);
 
+        _combineQueue.Remove(p_mochiPair.mochi1);
         yield return null;
     }
 
