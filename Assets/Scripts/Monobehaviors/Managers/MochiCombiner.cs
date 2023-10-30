@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class MochiCombiner : MonoBehaviour
 {
+    [Header("Refrences")]
+    [SerializeField] GameSettings _gameSettings;
     List<Mochi> _combineQueue = new List<Mochi>();
 
     public void OnMochiCollided(MochiPair p_mochiPair)
@@ -18,23 +20,22 @@ public class MochiCombiner : MonoBehaviour
 
     private IEnumerator CombineMochiTask(MochiPair p_mochiPair)
     {
+        yield return new WaitForSeconds(_gameSettings.combineDelay);
+
         DeactivateMochi(p_mochiPair.mochi1);
         DeactivateMochi(p_mochiPair.mochi2);
 
         Vector2 middlePoint = Vector2.Lerp(p_mochiPair.mochi1.transform.position, p_mochiPair.mochi2.transform.position, 0.5f);
-        p_mochiPair.mochi1.transform.DOMove(middlePoint, 1f);
-        p_mochiPair.mochi2.transform.DOMove(middlePoint, 1f);
+        p_mochiPair.mochi1.transform.DOMove(middlePoint, _gameSettings.combineSpeed);
+        p_mochiPair.mochi2.transform.DOMove(middlePoint, _gameSettings.combineSpeed);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(_gameSettings.scaleDelay);
 
         p_mochiPair.mochi2.gameObject.SetActive(false);
-
-
         p_mochiPair.mochi1.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        //p_mochiPair.mochi2.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        p_mochiPair.mochi1.transform.DOScale(2f, 1f);
-        p_mochiPair.mochi2.transform.DOScale(2f, 1f);
+        p_mochiPair.mochi1.transform.DOScale(2f, _gameSettings.scaleSpeed);
+        p_mochiPair.mochi2.transform.DOScale(2f, _gameSettings.scaleSpeed);
 
         yield return null;
     }
