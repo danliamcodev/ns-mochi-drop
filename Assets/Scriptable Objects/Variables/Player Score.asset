@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79545a0b9a18ed54fa3b59d1b38005f1, type: 3}
-  m_Name: 5
+  m_Script: {fileID: 11500000, guid: fe522c9f69c4c6143936a7ca0b908ec6, type: 3}
+  m_Name: Player Score
   m_EditorClassIdentifier: 
-  _color: {r: 0.94509804, g: 0.7265661, b: 0.41176474, a: 1}
-  _scale: 1.5
-  _points: 16
+  _value: 0

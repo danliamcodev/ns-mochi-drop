@@ -5,6 +5,9 @@ using DG.Tweening;
 
 public class MochiCombiner : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] MochiTypeEvent _mochiCombined;
+
     [Header("Refrences")]
     [SerializeField] GameSettings _gameSettings;
     [SerializeField] ObjectPoolController _mochiPoolController;
@@ -17,7 +20,7 @@ public class MochiCombiner : MonoBehaviour
         {
             _combineQueue.Add(p_mochiPair.mochi1);
             StartCoroutine(CombineMochiTask(p_mochiPair));
-        } 
+        }
     }
 
     private IEnumerator CombineMochiTask(MochiPair p_mochiPair)
@@ -25,13 +28,13 @@ public class MochiCombiner : MonoBehaviour
 
         MochiType newMochiType = p_mochiPair.mochi1.mochiType;
         //check if there's still a level after
-        for (int i = 0; i < _gameSettings.combineMatrix.Count; i++)
+        for (int i = 0; i < _gameSettings.mochiMatrix.Count; i++)
         {
-            if (p_mochiPair.mochi1.mochiType == _gameSettings.combineMatrix[i])
+            if (p_mochiPair.mochi1.mochiType == _gameSettings.mochiMatrix[i])
             {
-                if ((i + 1) < _gameSettings.combineMatrix.Count)
+                if ((i + 1) < _gameSettings.mochiMatrix.Count)
                 {
-                    newMochiType = _gameSettings.combineMatrix[i + 1];
+                    newMochiType = _gameSettings.mochiMatrix[i + 1];
          
                     break;
                 } else
@@ -50,25 +53,28 @@ public class MochiCombiner : MonoBehaviour
         p_mochiPair.mochi1.transform.DOMove(middlePoint, _gameSettings.combineSpeed);
         p_mochiPair.mochi2.transform.DOMove(middlePoint, _gameSettings.combineSpeed);
 
-        yield return new WaitForSeconds(_gameSettings.scaleDelay);
-
         _mochiPoolController.ReturnObject(p_mochiPair.mochi2.gameObject);
+        p_mochiPair.mochi2.GetComponent<Collider2D>().enabled = true;
 
-
-        p_mochiPair.mochi1.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         Vector2 oldScale = p_mochiPair.mochi1.transform.localScale;
-
         p_mochiPair.mochi1.ConfigureMochi(newMochiType);
         p_mochiPair.mochi1.transform.localScale = oldScale;
+        _combineQueue.Remove(p_mochiPair.mochi1);
+
+        yield return new WaitForSeconds(_gameSettings.scaleDelay);
+
+        p_mochiPair.mochi1.GetComponent<Collider2D>().enabled = true;
         p_mochiPair.mochi1.transform.DOScale(newMochiType.scale, _gameSettings.scaleSpeed);
 
-        _combineQueue.Remove(p_mochiPair.mochi1);
+        _mochiCombined.Raise(newMochiType);
+
         yield return null;
     }
 
     private void DeactivateMochi(Mochi p_mochi)
     {
-        p_mochi.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        p_mochi.GetComponent<Collider2D>().enabled = false;
+        //p_mochi.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         p_mochi.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }

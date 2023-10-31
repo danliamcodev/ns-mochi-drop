@@ -8,6 +8,10 @@ public class MochiDropper : MonoBehaviour
     [Header("Variables")]
     [SerializeField] InputAction _touch;
     [SerializeField] InputAction _drag;
+    [Range(0, 1)]
+    [SerializeField] float _dropperTransparency;
+    [SerializeField] int _mochiMinIndex;
+    [SerializeField] int _mochiMaxIndex;
 
     [Header("Events")]
     [SerializeField] VoidEvent _spawnMochi;
@@ -16,6 +20,7 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] GameObject _dropMarker;
     [SerializeField] SpriteRenderer _dropMarkerSprite;
     [SerializeField] ObjectPoolController _objectPoolController;
+    [SerializeField] GameSettings _gameSettings;
 
     GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
@@ -69,18 +74,30 @@ public class MochiDropper : MonoBehaviour
 
     private void SpawnMochi()
     {
-        _nextMochi.transform.position = _dropMarker.transform.position;
+        _nextMochi.transform.position = _dropMarkerSprite.transform.position;
         _nextMochi.SetActive(true);
-        _nextMochi.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
         LoadNextMochi();
     }
 
     private void LoadNextMochi()
     {
         _nextMochi = _objectPoolController.GetObject();
-        MochiType mochiType = _nextMochi.GetComponent<Mochi>().mochiType;
-        _dropMarkerSprite.color = mochiType.color;
-        _dropMarker.transform.localScale = new Vector3(mochiType.scale, mochiType.scale, 1f);
+        MochiType mochiType = GetRandomMochiType();
+        _nextMochi.GetComponent<Mochi>().ConfigureMochi(mochiType);
+        UpdateMochiDropperSprite(mochiType);
+    }
+
+    private void UpdateMochiDropperSprite(MochiType p_mochiType)
+    {
+        Color newColor = p_mochiType.color;
+        newColor.a = _dropperTransparency;
+        _dropMarkerSprite.color = newColor;
+        _dropMarker.transform.localScale = new Vector3(p_mochiType.scale, p_mochiType.scale, 1f);
+    }
+
+    private MochiType GetRandomMochiType()
+    {
+        int randomIndex = Random.Range(_mochiMinIndex, _mochiMaxIndex + 1);
+        return (_gameSettings.mochiMatrix[randomIndex]);
     }
 }

@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859ea437b5daa5e468ef376962958810, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  _combineSpeed: 0
-  _scaleSpeed: 0
-  _combineDelay: 0
-  _scaleDelay: 0
-  _combineMatrix:
+  _mochiMatrix:
   - {fileID: 11400000, guid: 742190fdf41aa7044bf68a5141bc171f, type: 2}
   - {fileID: 11400000, guid: 21f76394fdb71eb4fbb399f04fd7b492, type: 2}
   - {fileID: 11400000, guid: 866af3bac32fbd64e8baa1546b7bc251, type: 2}
@@ -24,3 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 528e1e317475f4043a5c156ca393bcd4, type: 2}
   - {fileID: 11400000, guid: f183d82fe059e8642841f97111aa8e9e, type: 2}
   - {fileID: 11400000, guid: c7196e0a8a37c1a4fb292e7c53b22e9d, type: 2}
+  _combineSpeed: 0.1
+  _scaleSpeed: 0.2
+  _combineDelay: 0.01
+  _scaleDelay: 0.01

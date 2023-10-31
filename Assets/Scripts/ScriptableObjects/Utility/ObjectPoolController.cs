@@ -22,6 +22,11 @@ public class ObjectPoolController : ScriptableObject
 
     public GameObject GetObject()
     {
+        if (_objectPool.objects.Count < 1)
+        {
+            _objectPool.AddObjectsToPool(_objectPrefab, 1);
+        }
+
         GameObject obj = _objectPool.objects.Dequeue();
         return obj;
     }
