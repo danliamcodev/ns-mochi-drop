@@ -163,4 +163,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mochiCollided: {fileID: 11400000, guid: ff5a045cae3aac747b0a835de1169b3f, type: 2}
   _spriteRenderer: {fileID: 7426644471221762595}
-  _mochiType: {fileID: 11400000, guid: 528e1e317475f4043a5c156ca393bcd4, type: 2}
+  _mochiType: {fileID: 11400000, guid: 742190fdf41aa7044bf68a5141bc171f, type: 2}

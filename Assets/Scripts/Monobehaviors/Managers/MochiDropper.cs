@@ -14,8 +14,10 @@ public class MochiDropper : MonoBehaviour
 
     [Header("References")]
     [SerializeField] GameObject _dropMarker;
+    [SerializeField] SpriteRenderer _dropMarkerSprite;
     [SerializeField] ObjectPoolController _objectPoolController;
 
+    GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
     bool _isDragging = false;
 
@@ -32,6 +34,8 @@ public class MochiDropper : MonoBehaviour
     private void Start()
     {
         _objectPoolController.InitializePool(20);
+
+        LoadNextMochi();
     }
 
     private void Update()
@@ -65,8 +69,18 @@ public class MochiDropper : MonoBehaviour
 
     private void SpawnMochi()
     {
-        GameObject mochi = _objectPoolController.GetObject();
-        mochi.transform.position = _dropMarker.transform.position;
-        mochi.SetActive(true);
+        _nextMochi.transform.position = _dropMarker.transform.position;
+        _nextMochi.SetActive(true);
+        _nextMochi.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+        LoadNextMochi();
+    }
+
+    private void LoadNextMochi()
+    {
+        _nextMochi = _objectPoolController.GetObject();
+        MochiType mochiType = _nextMochi.GetComponent<Mochi>().mochiType;
+        _dropMarkerSprite.color = mochiType.color;
+        _dropMarker.transform.localScale = new Vector3(mochiType.scale, mochiType.scale, 1f);
     }
 }
