@@ -18,4 +18,4 @@ MonoBehaviour:
   _eventsTemplate: {fileID: 11500000, guid: 0055758e8ce514b4aa318e5f091ac9c7, type: 3}
   _eventListenersTemplate: {fileID: 11500000, guid: baf45d8bd1f385947aa5a3543514de6c, type: 3}
   _eventEditorsTemplate: {fileID: 11500000, guid: 51d5b9c7a0045774b8cbdce724421a2e, type: 3}
-  _eventType: MochiPair
+  _eventType: MochiType

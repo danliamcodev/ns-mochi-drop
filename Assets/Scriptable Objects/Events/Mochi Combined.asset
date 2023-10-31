@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79545a0b9a18ed54fa3b59d1b38005f1, type: 3}
-  m_Name: 5
+  m_Script: {fileID: 11500000, guid: 828c5e4c35e31a8419ff24fea83c592d, type: 3}
+  m_Name: Mochi Combined
   m_EditorClassIdentifier: 
-  _color: {r: 0.94509804, g: 0.7265661, b: 0.41176474, a: 1}
-  _scale: 1.5
-  _points: 16
+  _testValue: {fileID: 0}
