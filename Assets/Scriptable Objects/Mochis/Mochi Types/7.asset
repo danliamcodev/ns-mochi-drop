@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79545a0b9a18ed54fa3b59d1b38005f1, type: 3}
   m_Name: 7
   m_EditorClassIdentifier: 
-  _color: {r: 0.94509804, g: 0.41176474, b: 0.45808965, a: 1}
-  _scale: 3
-  _points: 64
+  _color: {r: 0.94509804, g: 0.9096946, b: 0.41176474, a: 1}
+  _scale: 2
+  _points: 500

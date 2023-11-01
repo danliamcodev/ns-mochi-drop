@@ -32,7 +32,6 @@ public class Mochi : MonoBehaviour
  
         if (collision.gameObject.TryGetComponent<Mochi>(out Mochi mochi))
         {
-            print(string.Format("Collided {0} and {1}", _mochiType, mochi.mochiType));
             if (mochi.mochiType == _mochiType)
             {
                 MochiPair mochiPair = new MochiPair(this, mochi);
