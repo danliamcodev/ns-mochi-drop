@@ -32,24 +32,26 @@ public class MochiDropper : MonoBehaviour
     {
         _touch.Enable();
         _drag.Enable();
+    }
 
+    private void OnEnable()
+    {
         _drag.performed += OnDragPerformed;
         _touch.performed += OnTouchPerformed;
         _touch.canceled += OnTouchCanceled;
     }
 
-
-    private void Start()
-    {
-        _objectPoolController.AddObjectsToPool(20);
-        LoadNextMochi();
-    }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         _drag.performed -= OnDragPerformed;
         _touch.performed -= OnTouchPerformed;
         _touch.canceled -= OnTouchCanceled;
+    }
+
+    private void Start()
+    {
+        _objectPoolController.AddObjectsToPool(40);
+        LoadNextMochi();
     }
 
     private void OnDragPerformed(InputAction.CallbackContext p_context)
