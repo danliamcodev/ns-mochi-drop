@@ -23,7 +23,7 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] GameSettings _gameSettings;
     [SerializeField] BoolVariable _gameIsPaused;
 
-    [SerializeField] GameObject _nextMochi;
+    GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
     bool _isDragging = false;
     bool _inputEnabled = true;
@@ -101,8 +101,8 @@ public class MochiDropper : MonoBehaviour
         Camera mainCamera = Camera.main;
         // Calculate the camera's boundaries
         float cameraWidth = mainCamera.orthographicSize * mainCamera.aspect;
-        float minX = mainCamera.transform.position.x - cameraWidth + 0.5f;
-        float maxX = mainCamera.transform.position.x + cameraWidth - 0.5f;
+        float minX = mainCamera.transform.position.x - cameraWidth + _nextMochi.transform.localScale.x * 0.6f;
+        float maxX = mainCamera.transform.position.x + cameraWidth - _nextMochi.transform.localScale.x * 0.6f;
         float clampedX = Mathf.Clamp(p_x, minX, maxX);
         return clampedX;
     }
