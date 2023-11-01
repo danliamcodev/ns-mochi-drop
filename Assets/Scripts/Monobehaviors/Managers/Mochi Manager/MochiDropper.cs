@@ -26,6 +26,7 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
     bool _isDragging = false;
+    bool _inputEnabled = true;
 
     private void Awake()
     {
@@ -53,22 +54,28 @@ public class MochiDropper : MonoBehaviour
 
     private void OnDragPerformed(InputAction.CallbackContext p_context)
     {
+        if (!_inputEnabled) return;
         _cursorScreenPosition = p_context.ReadValue<Vector2>();
     }
 
     private void OnTouchPerformed(InputAction.CallbackContext p_context)
     {
-        if (_gameIsPaused.value) return; 
+        if (_gameIsPaused.value || !_inputEnabled) return; 
         
         _isDragging = true;
     }
 
     private void OnTouchCanceled(InputAction.CallbackContext p_context)
     {
-        if (_gameIsPaused.value) return; 
-        
+        if (_gameIsPaused.value || !_inputEnabled) return;
+
         _isDragging = false; 
         SpawnMochi();
+    }
+
+    public void OnMochiLanded()
+    {
+        LoadNextMochi();
     }
 
         private void Update()
@@ -102,9 +109,10 @@ public class MochiDropper : MonoBehaviour
 
     private void SpawnMochi()
     {
+        _inputEnabled = false;
         _nextMochi.transform.position = _dropMarkerSprite.transform.position;
         _nextMochi.SetActive(true);
-        LoadNextMochi();
+        _dropMarkerSprite.gameObject.SetActive(false);
     }
 
     private void LoadNextMochi()
@@ -113,6 +121,7 @@ public class MochiDropper : MonoBehaviour
         MochiType mochiType = GetRandomMochiType();
         _nextMochi.GetComponent<Mochi>().ConfigureMochi(mochiType);
         UpdateMochiDropperSprite(mochiType);
+        _inputEnabled = true;
     }
 
     private void UpdateMochiDropperSprite(MochiType p_mochiType)
@@ -121,6 +130,8 @@ public class MochiDropper : MonoBehaviour
         newColor.a = _dropperTransparency;
         _dropMarkerSprite.color = newColor;
         _dropMarker.transform.localScale = new Vector3(p_mochiType.scale, p_mochiType.scale, 1f);
+        _dropMarker.transform.position = new Vector3(0f, _dropMarker.transform.position.y, 1f);
+        _dropMarkerSprite.gameObject.SetActive(true);
     }
 
     private MochiType GetRandomMochiType()
