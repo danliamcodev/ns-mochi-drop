@@ -25,3 +25,4 @@ MonoBehaviour:
   _scaleSpeed: 0.2
   _combineDelay: 0.01
   _scaleDelay: 0.01
+  _popUpForce: {x: 0, y: 150}

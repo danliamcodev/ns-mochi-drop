@@ -65,8 +65,10 @@ public class MochiCombiner : MonoBehaviour
 
         p_mochiPair.mochi1.GetComponent<Collider2D>().enabled = true;
         p_mochiPair.mochi1.transform.DOScale(newMochiType.scale, _gameSettings.scaleSpeed);
+        p_mochiPair.mochi1.GetComponent<Rigidbody2D>().AddForce(_gameSettings.popUpForce);
 
         _mochiCombined.Raise(newMochiType);
+
 
         yield return null;
     }
@@ -74,7 +76,6 @@ public class MochiCombiner : MonoBehaviour
     private void DeactivateMochi(Mochi p_mochi)
     {
         p_mochi.GetComponent<Collider2D>().enabled = false;
-        //p_mochi.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         p_mochi.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }
