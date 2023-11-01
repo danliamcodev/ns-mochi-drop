@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 0.6256869, g: 0.9433962, b: 0.4129583, a: 1}
   _scale: 0.5
-  _points: 10
+  _points: 3

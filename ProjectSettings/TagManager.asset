@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1106232143
+    locked: 0
+  - name: Midground
+    uniqueID: 2718246979
+    locked: 0
+  - name: Foreground
+    uniqueID: 1972132413
+    locked: 0
+  - name: Mochi
+    uniqueID: 1425574223
+    locked: 0
+  - name: UI
+    uniqueID: 8977253
+    locked: 0

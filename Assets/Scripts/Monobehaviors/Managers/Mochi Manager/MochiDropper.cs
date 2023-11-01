@@ -103,8 +103,8 @@ public class MochiDropper : MonoBehaviour
         Camera mainCamera = Camera.main;
         // Calculate the camera's boundaries
         float cameraWidth = mainCamera.orthographicSize * mainCamera.aspect;
-        float minX = mainCamera.transform.position.x - cameraWidth + _nextMochi.transform.localScale.x * 0.6f;
-        float maxX = mainCamera.transform.position.x + cameraWidth - _nextMochi.transform.localScale.x * 0.6f;
+        float minX = mainCamera.transform.position.x - cameraWidth + _nextMochi.transform.localScale.x * 0.6f + 0.5f;
+        float maxX = mainCamera.transform.position.x + cameraWidth - _nextMochi.transform.localScale.x * 0.6f - 0.5f;
         float clampedX = Mathf.Clamp(p_x, minX, maxX);
         return clampedX;
     }
