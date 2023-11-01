@@ -21,8 +21,9 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] SpriteRenderer _dropMarkerSprite;
     [SerializeField] ObjectPoolController _objectPoolController;
     [SerializeField] GameSettings _gameSettings;
+    [SerializeField] BoolVariable _gameIsPaused;
 
-    GameObject _nextMochi;
+    [SerializeField] GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
     bool _isDragging = false;
 
@@ -31,19 +32,46 @@ public class MochiDropper : MonoBehaviour
         _touch.Enable();
         _drag.Enable();
 
-        _drag.performed += context => { _cursorScreenPosition = context.ReadValue<Vector2>(); };
-        _touch.performed += context => { _isDragging = true; };
-        _touch.canceled += context => { _isDragging = false; SpawnMochi(); };
+        _drag.performed += OnDragPerformed;
+        _touch.performed += OnTouchPerformed;
+        _touch.canceled += OnTouchCanceled;
     }
+
 
     private void Start()
     {
-        _objectPoolController.InitializePool(20);
-
+        _objectPoolController.AddObjectsToPool(20);
         LoadNextMochi();
     }
 
-    private void Update()
+    private void OnDestroy()
+    {
+        _drag.performed -= OnDragPerformed;
+        _touch.performed -= OnTouchPerformed;
+        _touch.canceled -= OnTouchCanceled;
+    }
+
+    private void OnDragPerformed(InputAction.CallbackContext p_context)
+    {
+        _cursorScreenPosition = p_context.ReadValue<Vector2>();
+    }
+
+    private void OnTouchPerformed(InputAction.CallbackContext p_context)
+    {
+        if (_gameIsPaused.value) return; 
+        
+        _isDragging = true;
+    }
+
+    private void OnTouchCanceled(InputAction.CallbackContext p_context)
+    {
+        if (_gameIsPaused.value) return; 
+        
+        _isDragging = false; 
+        SpawnMochi();
+    }
+
+        private void Update()
     {
         if (_isDragging)
         {

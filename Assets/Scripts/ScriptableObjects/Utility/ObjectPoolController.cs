@@ -15,7 +15,7 @@ public class ObjectPoolController : ScriptableObject
         _objectPool = p_objectPool;
     }
 
-    public void InitializePool(int p_objectCount)
+    public void AddObjectsToPool(int p_objectCount)
     {
         _objectPool.AddObjectsToPool(_objectPrefab, p_objectCount);
     }
