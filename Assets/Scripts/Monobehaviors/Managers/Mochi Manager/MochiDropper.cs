@@ -22,6 +22,7 @@ public class MochiDropper : MonoBehaviour
     [SerializeField] ObjectPoolController _objectPoolController;
     [SerializeField] GameSettings _gameSettings;
     [SerializeField] BoolVariable _gameIsPaused;
+    [SerializeField] SoundManager _soundManager;
 
     GameObject _nextMochi;
     Vector3 _cursorScreenPosition = Vector3.zero;
@@ -88,21 +89,6 @@ public class MochiDropper : MonoBehaviour
             // Adjust the lerp speed by changing the second parameter (e.g., 0.1f)
             _dropMarker.transform.position = Vector3.Lerp(_dropMarker.transform.position, targetPosition, 0.1f);
         }
-        return;
-
-        if (_isDragging)
-        {
-            // Calculate the new position for the _dropMarker using Lerp
-            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(_cursorScreenPosition);
-
-
-            targetPosition.x = ClampInPlayArea(targetPosition.x);
-            targetPosition.y = _dropMarker.transform.position.y;
-            targetPosition.z = 0; // Assuming z should be 0, adjust as needed
-
-            // Adjust the lerp speed by changing the second parameter (e.g., 0.1f)
-            _dropMarker.transform.position = Vector3.Lerp(_dropMarker.transform.position, targetPosition, 0.1f);
-        }
     }
 
     private float ClampInPlayArea(float p_x)
@@ -123,6 +109,7 @@ public class MochiDropper : MonoBehaviour
         _nextMochi.transform.position = _dropMarkerSprite.transform.position;
         _nextMochi.SetActive(true);
         _dropMarkerSprite.gameObject.SetActive(false);
+        _soundManager.PlayButtonClickSFX();
     }
 
     private void LoadNextMochi()
