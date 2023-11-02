@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundManager: {fileID: 11400000, guid: 5bcdc81f34b8db74491c22d03e2e638a, type: 2}
-  _bgm: {fileID: 8300000, guid: 935d05ae91eb8464797e0fecbd656b63, type: 3}
+  _bgm: {fileID: 8300000, guid: cffee77b2ba486b4fa43242e41479091, type: 3}
 --- !u!1 &1425392809
 GameObject:
   m_ObjectHideFlags: 0

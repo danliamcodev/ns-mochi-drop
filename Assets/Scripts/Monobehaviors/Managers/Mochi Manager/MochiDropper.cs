@@ -37,14 +37,14 @@ public class MochiDropper : MonoBehaviour
     private void OnEnable()
     {
         _drag.performed += OnDragPerformed;
-        _touch.performed += OnTouchPerformed;
+        //_touch.performed += OnTouchPerformed;
         _touch.canceled += OnTouchCanceled;
     }
 
     private void OnDisable()
     {
         _drag.performed -= OnDragPerformed;
-        _touch.performed -= OnTouchPerformed;
+        //_touch.performed -= OnTouchPerformed;
         _touch.canceled -= OnTouchCanceled;
     }
 
@@ -56,22 +56,14 @@ public class MochiDropper : MonoBehaviour
 
     private void OnDragPerformed(InputAction.CallbackContext p_context)
     {
-        if (!_inputEnabled) return;
         _cursorScreenPosition = p_context.ReadValue<Vector2>();
     }
 
-    private void OnTouchPerformed(InputAction.CallbackContext p_context)
-    {
-        if (_gameIsPaused.value || !_inputEnabled) return; 
-        
-        _isDragging = true;
-    }
 
     private void OnTouchCanceled(InputAction.CallbackContext p_context)
     {
         if (_gameIsPaused.value || !_inputEnabled) return;
 
-        _isDragging = false; 
         SpawnMochi();
     }
 
@@ -82,6 +74,22 @@ public class MochiDropper : MonoBehaviour
 
         private void Update()
     {
+
+        if (_touch.IsPressed())
+        {
+            // Calculate the new position for the _dropMarker using Lerp
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(_cursorScreenPosition);
+
+
+            targetPosition.x = ClampInPlayArea(targetPosition.x);
+            targetPosition.y = _dropMarker.transform.position.y;
+            targetPosition.z = 0; // Assuming z should be 0, adjust as needed
+
+            // Adjust the lerp speed by changing the second parameter (e.g., 0.1f)
+            _dropMarker.transform.position = Vector3.Lerp(_dropMarker.transform.position, targetPosition, 0.1f);
+        }
+        return;
+
         if (_isDragging)
         {
             // Calculate the new position for the _dropMarker using Lerp
