@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mochiLanded: {fileID: 11400000, guid: 20875ff813cfbf649aa20ac48386192c, type: 2}
+  _checkGameOver: {fileID: 11400000, guid: 8c63817e34ea55a45adb0b7797684cb2, type: 2}
 --- !u!114 &-4025690573093753669
 MonoBehaviour:
   m_ObjectHideFlags: 0
