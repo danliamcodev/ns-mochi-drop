@@ -8,14 +8,20 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] VoidEvent _scoreUpdated;
     [Header("References")]
     [SerializeField] IntVariable _playerScore;
+    [SerializeField] MochiSet _mochisInPlayArea;
     private void Start()
     {
         ResetScore();
     }
 
-    public void OnMochiCombined(MochiType p_mochiType)
+    public void CalculateScore()
     {
-        _playerScore.ApplyChange(p_mochiType.points);
+        int score = 0;
+        foreach (Mochi mochi in _mochisInPlayArea.items)
+        {
+            score += mochi.mochiType.points;
+        }
+        _playerScore.SetValue(score);
         _scoreUpdated.Raise();
     }
 

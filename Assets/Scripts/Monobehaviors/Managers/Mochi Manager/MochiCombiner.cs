@@ -67,6 +67,8 @@ public class MochiCombiner : MonoBehaviour
         p_mochiPair.mochi1.transform.DOScale(newMochiType.scale, _gameSettings.scaleSpeed);
         p_mochiPair.mochi1.GetComponent<Rigidbody2D>().AddForce(_gameSettings.popUpForce);
 
+        yield return new WaitForSeconds(_gameSettings.scaleSpeed);
+
         _mochiCombined.Raise(newMochiType);
 
 

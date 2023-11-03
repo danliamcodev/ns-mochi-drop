@@ -9,7 +9,7 @@ public class EnteredPlayAreaDetector : MonoBehaviour
     [SerializeField] UnityEvent _onPlayAreaEntered;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<PlayAreaZoneDetection>())
+        if (collision.GetComponent<PlayAreaEntrance>())
         {
             _onPlayAreaEntered.Invoke();
         }
