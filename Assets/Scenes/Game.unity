@@ -2113,6 +2113,7 @@ MonoBehaviour:
   _objectPoolController: {fileID: 11400000, guid: a46c6f34b0ff51547bc9c2cd6d86e241, type: 2}
   _gameSettings: {fileID: 11400000, guid: 8b51ba03a6e230d4baef566552676c17, type: 2}
   _gameIsPaused: {fileID: 11400000, guid: 7d2221d8f7df92240af28050e7bc9bf4, type: 2}
+  _soundManager: {fileID: 11400000, guid: 5bcdc81f34b8db74491c22d03e2e638a, type: 2}
 --- !u!4 &590029150
 Transform:
   m_ObjectHideFlags: 0
@@ -5360,13 +5361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0b8eb5bfe94ef4390243b04521c0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 20875ff813cfbf649aa20ac48386192c, type: 2}
+  _event: {fileID: 11400000, guid: 8c63817e34ea55a45adb0b7797684cb2, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1773819600}
         m_TargetAssemblyTypeName: GameOverConditionChecker, Assembly-CSharp
-        m_MethodName: OnMochiLanded
+        m_MethodName: OnCheckGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -26,9 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void ResumeGame()
-    {
-        print("resuming");
-  
+    {  
         _gameIsPaused.SetValue(false);
     }
 }

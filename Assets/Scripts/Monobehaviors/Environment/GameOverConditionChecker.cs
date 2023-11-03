@@ -24,7 +24,7 @@ public class GameOverConditionChecker : MonoBehaviour
         }
     }
 
-    public void OnMochiLanded()
+    public void OnCheckGameOver()
     {
         if (_mochisInArea.Count > 0)
         {
